@@ -19,7 +19,7 @@ pipeline {
 
             post {
                 success {
-                   archiveArtifacts artifacts: 'java-app/target/*.jar', fingerprint: true
+                   archiveArtifacts artifacts: 'maven-app/target/*.jar', fingerprint: true
                 }
             }
         }
@@ -31,7 +31,7 @@ pipeline {
 
             post {
                 always {
-                    junit 'java-app/target/surefire-reports/*.xml'
+                    junit 'maven-app/target/surefire-reports/*.xml'
                 }
             }
         }
