@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "%%%%%%%%%%%%%%%%%%"
-echo "building jar file"
+echo "testing  jar file"
 echo "%%%%%%%%%%%%%%%%%%"
 WORKSPACE=/docker/ansible-jenkins/jenkins_home/workspace/pipeline-docker-maven
 
