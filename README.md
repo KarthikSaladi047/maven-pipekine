@@ -3,7 +3,8 @@
 The Stages involved in this project are:
 - Local machine setup (Pre-requisites)
 - Java App in Github
-- Jenkins setup 
+- Jenkins setup
+- Jenkins Pipeline
 - Developing Shell Scripts for various processes (Build, Test & Deploy)
 - Generating required Dockerfiles and Docker-compose filest
 
@@ -126,3 +127,7 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
 - Finally the we will see the UI of our Jenkins server and is ready to use.
 
   ![Screenshot from 2023-03-05 17-23-47](https://user-images.githubusercontent.com/105864615/222960384-0226cb3a-0c66-4cf2-987a-763c1d5e1403.png)
+  
+## Jenkins pipeline
+
+- In the Jenkins UI click on "New Item" and add the project description and select Pipeline.
