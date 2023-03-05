@@ -10,7 +10,7 @@ The Stages involved in this project are:
 
 Clone the repositiry into local machine.
 ```
-git clone https://github.com/KaerthikSaladi047/maven-pipeline.git
+git clone https://github.com/KarthikSaladi047/maven-pipeline.git
 cd maven-pipeline
 ```
 
