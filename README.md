@@ -46,7 +46,7 @@ USER jenkins
 Now we will build the Docker Image for the above Dockerfile.
 
 ```
-docker build -t jenkins-docker
+docker build --tag jenkins-docker .
 ```
 
 Now we will run the above Docker Image using Docker-compose and the corresponding docker-compose.yml file is below.
