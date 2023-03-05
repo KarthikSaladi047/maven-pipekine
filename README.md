@@ -101,6 +101,7 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
   ```
 - Now will see the the password to access Jenkins server in the comand prompt as shown in below image.
 
+![Screenshot from 2023-03-05 18-15-24](https://user-images.githubusercontent.com/105864615/222961392-d22279f8-d209-4d6b-b879-feba4d65f6e6.png)
 
 - Copy the password and now open Brownser and navigate to http://localhost:8080/ and We will see the following Image.
 
