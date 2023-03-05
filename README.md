@@ -107,8 +107,8 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
 ![Screenshot from 2023-03-05 17-15-48](https://user-images.githubusercontent.com/105864615/222960463-192e80ce-40be-443d-af76-1a06878e49ee.png)
 
 - Paste the password copied and click continue and then we need to install suggested plugins before proceeding to next step.
-
-![jenkins-suggested-plugins](https://user-images.githubusercontent.com/105864615/222959815-09861e0e-6bdf-4de2-9d65-797a49b9f2ef.png)
+- 
+![Untitled design](https://user-images.githubusercontent.com/105864615/222960800-b8e55b98-789c-4bc5-905d-16af98c4c8a3.jpg)
 
 - Now all the Plugins suggested by Jenkins will install in a matter of time.
 
