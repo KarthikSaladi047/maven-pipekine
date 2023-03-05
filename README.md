@@ -2,7 +2,7 @@
 
 The Stages involved in this project are:
 - Local machine setup (Pre-requisites)
-- Maven App in Github
+- Java App in Github
 - Jenkins setup 
 - Developing Shell Scripts for various processes (Build, Test & Deploy)
 - Generating required Dockerfiles and Docker-compose filest
@@ -28,7 +28,7 @@ The Stages involved in this project are:
     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     ```
 
-## Maven App in Github
+## Java App in Github
 
   Clone the repositiry into local machine.
   ```
@@ -86,7 +86,7 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
       ports:
         - "8080:8080"
       volumes:
-        - /docker/ansible-jenkins/jenkins_home:/var/jenkins_home
+        - /home/karthik/jenkins-volume:/var/jenkins_home
         - /var/run/docker.sock:/var/run/docker.sock
       networks:
         - net1
