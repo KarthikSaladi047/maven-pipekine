@@ -101,14 +101,27 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
   ```
 - Now will see the the password to access Jenkins server in the comand prompt as shown in below image.
 
+
 - Copy the password and now open Brownser and navigate to http://localhost:8080/ and We will see the following Image.
 
-- Paste the password copied and click continue.
+![Screenshot from 2023-03-05 17-15-48](https://user-images.githubusercontent.com/105864615/222960463-192e80ce-40be-443d-af76-1a06878e49ee.png)
 
-- Now we need to install suggested plugins before proceeding to next step.
+- Paste the password copied and click continue and then we need to install suggested plugins before proceeding to next step.
+
 ![jenkins-suggested-plugins](https://user-images.githubusercontent.com/105864615/222959815-09861e0e-6bdf-4de2-9d65-797a49b9f2ef.png)
+
 - Now all the Plugins suggested by Jenkins will install in a matter of time.
+
+![Screenshot from 2023-03-05 17-14-49](https://user-images.githubusercontent.com/105864615/222960452-7175a729-9986-46dd-8bf3-5d6c4d371382.png)
 
 - Now create a user account as shown below.
 
+![Screenshot from 2023-03-05 17-22-32](https://user-images.githubusercontent.com/105864615/222960348-c5b56932-ed0a-4f94-90dd-2ae054b042c0.png)
+
+- Now the Jenkins server is add with plugins and user account.
+
+![Screenshot from 2023-03-05 17-23-10](https://user-images.githubusercontent.com/105864615/222960359-b46dfc0d-5312-4145-8bd5-b48596a235d5.png)
+
 - Finally the we will see the UI of our Jenkins server and is ready to use.
+
+![Screenshot from 2023-03-05 17-23-47](https://user-images.githubusercontent.com/105864615/222960384-0226cb3a-0c66-4cf2-987a-763c1d5e1403.png)
