@@ -203,8 +203,8 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
   - **Deploy**: In this stage we will run couple of shell scripts which runs the docker container on a remote Virtual Machine.
   - we also have an environment variable called PASS , which is password for docker hub account.
     
-    Adding Credentials in Jenkins(docker Hub cerdentials):
-    - In the jenkins dashboard navigate to **Manage Jenkins** >> **Manage Credentials** >> **system** >> **Global cerdemtials**
+    Adding Credentials in Jenkins(docker Hub credentials):
+    - In the jenkins dashboard navigate to **Manage Jenkins** >> **Manage Credentials** >> **system** >> **Global credentials**
     
       ![Screenshot from 2023-03-06 11-54-37](https://user-images.githubusercontent.com/105864615/223085555-b42fab77-737d-4473-9fc2-cad6b31f35c9.png)
 
@@ -215,3 +215,15 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
     - Within the **kind** select **Secret Text** and add secret & ID as **registry-pass**
       
       ![Screenshot from 2023-03-06 15-37-01](https://user-images.githubusercontent.com/105864615/223085378-a9025477-6332-4cb0-8172-603621bde5b0.png)
+      
+ 
+ ## Developing Shell Scripts for various stages of Pipeline
+ 
+    As we are using different shell script at different stages of pipeline, we will disscuss regarding those scripts and realated docker and docker compose files in this section.
+    
+    - **Build Stage Scripts**
+    
+      /jenkins/build/mvn.sh
+      ```
+      
+      ```
