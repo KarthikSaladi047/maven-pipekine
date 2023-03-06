@@ -3,6 +3,7 @@
 ## Introduction
 
 Automation of building, testing & deploying a Java Application using Maven, Jenkins, Docker and Shell Scripting.
+![jenkins-scripting](https://user-images.githubusercontent.com/105864615/223118774-9ae7ab34-6f5a-4dd8-b9a7-917b0dcbede6.jpg)
 
 The Stages involved in this project are:
 - Local machine setup (Pre-requisites)
