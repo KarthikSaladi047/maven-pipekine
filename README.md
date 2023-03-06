@@ -132,7 +132,14 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
 
 - In the Jenkins Dashboard click on "New Item" and add the project name(maven-project), select Pipeline and click OK.
 
+  ![Screenshot from 2023-03-06 15-58-24](https://user-images.githubusercontent.com/105864615/223084931-6e4bddda-f375-45e6-aaaa-52d54254a3d3.png)
+
 - Now add pipeline description and in the pipeline definintion select **Pipeline Script from SCM** and select **git** within **SCM** add Github repo url and select **Jenkinfile** within **Script Path** then click save.
+
+  ![Screenshot from 2023-03-06 15-55-34](https://user-images.githubusercontent.com/105864615/223085099-5d5cdbf7-470d-4e4f-826b-c060b566af54.png)
+
+  ![Screenshot from 2023-03-06 15-55-40](https://user-images.githubusercontent.com/105864615/223085186-58aa4985-0bf2-471e-a8d4-b7342d8dd273.png)
+
 
 - Now Our pipeline is ready to run and this pipeline uses the following **Jenkinsfile.
 
@@ -189,6 +196,7 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
   }
   ```
 - This pipeline involves the following stages.
+
   - **Build**: In this stage we run couple of shell scripts, which build the java application using maven and then the build artifact will be containerized(Docker Image) using docker.
   - **Test**: In this stage we run a shell script, which test the java application using maven and results will be reported within Jenkins.
   - **Push**: In this stage we run a shell script which pushes the docker image that was build during build stage to Docker Hub (container registry).
@@ -198,6 +206,12 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
     Adding Credentials in Jenkins(docker Hub cerdentials):
     - In the jenkins dashboard navigate to **Manage Jenkins** >> **Manage Credentials** >> **system** >> **Global cerdemtials**
     
+      ![Screenshot from 2023-03-06 11-54-37](https://user-images.githubusercontent.com/105864615/223085555-b42fab77-737d-4473-9fc2-cad6b31f35c9.png)
+
     - Click on **Add Credentials**
     
+      ![Screenshot from 2023-03-06 16-03-44](https://user-images.githubusercontent.com/105864615/223085964-83438798-0901-4fdf-9dbc-fa49be54c6b6.png)
+
     - Within the **kind** select **Secret Text** and add secret & ID as **registry-pass**
+      
+      ![Screenshot from 2023-03-06 15-37-01](https://user-images.githubusercontent.com/105864615/223085378-a9025477-6332-4cb0-8172-603621bde5b0.png)
