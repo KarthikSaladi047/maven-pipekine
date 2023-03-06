@@ -225,82 +225,101 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
  
     As we are using different shell scripts at different stages of pipeline, we will disscuss regarding those scripts and realated docker and docker compose files in this section.
     
-    - **Build Stage Scripts**
-    
-        /jenkins/build/mvn.sh
+  - **Build Stage Scripts**
 
-        ```
-        #!/bin/bash
+      /jenkins/build/mvn.sh
 
-        echo "%%%%%%%%%%%%%%%%%%"
-        echo "building jar file"
-        echo "%%%%%%%%%%%%%%%%%%"
-        WORKSPACE=/home/karthik/projects/jenkins-volume/workspace/maven-project
+      ```
+      #!/bin/bash
 
-        docker run --rm -v $WORKSPACE/maven-app:/app -v /root/.m2/:/root/.m2 -w /app maven:latest "$@"
-        ```
+      echo "%%%%%%%%%%%%%%%%%%"
+      echo "building jar file"
+      echo "%%%%%%%%%%%%%%%%%%"
+      WORKSPACE=/home/karthik/projects/jenkins-volume/workspace/maven-project
 
-        /jenkins/build/build.sh
+      docker run --rm -v $WORKSPACE/maven-app:/app -v /root/.m2/:/root/.m2 -w /app maven:latest "$@"
+      ```
 
-        ```
-        #!/bin/bash
+      /jenkins/build/build.sh
 
-        # copy the new jar to build loction
-        cp -f maven-app/target/*.jar jenkins/build/
+      ```
+      #!/bin/bash
+
+      # copy the new jar to build loction
+      cp -f maven-app/target/*.jar jenkins/build/
 
 
-        echo "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
-        echo "building docker image"
-        echo "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+      echo "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+      echo "building docker image"
+      echo "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
 
-        cd jenkins/build/ && docker compose -f docker-compose-build.yml build --no-cache
-        ```
+      cd jenkins/build/ && docker compose -f docker-compose-build.yml build --no-cache
+      ```
 
-        /jenkins/build/docker-compose-build.yml
+      /jenkins/build/docker-compose-build.yml
 
-        ```
-        version: '3'
-        services:
-          app:
-            image: "maven-project:$BUILD_TAG"
-            build:
-              context: .
-              dockerfile: Dockerfile-Java
+      ```
+      version: '3'
+      services:
+        app:
+          image: "maven-project:$BUILD_TAG"
+          build:
+            context: .
+            dockerfile: Dockerfile-Java
 
-        ```
+      ```
 
-        /jenkins/build/Dockerfile-Java
+      /jenkins/build/Dockerfile-Java
 
-        ```
-        FROM openjdk:8-jre-alpine
+      ```
+      FROM openjdk:8-jre-alpine
 
-        RUN mkdir /app
+      RUN mkdir /app
 
-        COPY *.jar  /app/app.jar
+      COPY *.jar  /app/app.jar
 
-        CMD java -jar /app/app.jar
-        ```
-        
-    - **Test stage Scripts**
-        
-        /jenkins/test/mvn.sh
-        
-        ```
-        #!/bin/bash
+      CMD java -jar /app/app.jar
+      ```
 
-        echo "%%%%%%%%%%%%%%%%%%"
-        echo "testing  jar file"
-        echo "%%%%%%%%%%%%%%%%%%"
-        WORKSPACE=/home/karthik/projects/jenkins-volume/workspace/maven-project
+  - **Test stage Scripts**
 
-        docker run --rm -v $WORKSPACE/maven-app:/app -v /root/.m2/:/root/.m2 -w /app maven:latest "$@"
-        ```
-    - **Push Stage Scripts**
-        
-        /jenkins/push/push.sh
-        
-        ```
-        
-        ```
-        
-        
+      /jenkins/test/mvn.sh
+
+      ```
+      #!/bin/bash
+
+      echo "%%%%%%%%%%%%%%%%%%"
+      echo "testing  jar file"
+      echo "%%%%%%%%%%%%%%%%%%"
+      WORKSPACE=/home/karthik/projects/jenkins-volume/workspace/maven-project
+
+      docker run --rm -v $WORKSPACE/maven-app:/app -v /root/.m2/:/root/.m2 -w /app maven:latest "$@"
+      ```
+  - **Push Stage Scripts**
+
+      /jenkins/push/push.sh
+
+      ```
+      #!/bin/bash
+
+      echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+      echo "%%%%% pushing image %%%%%%%%"
+      echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+
+
+      IMAGE="maven-project"
+
+      echo "%%%%% Logging in %%%%%%%%%%"
+      docker login -u karthiksaladi047 -p $PASS
+
+      echo "%%%%%%%%%%% Tagging Image %%%%%"
+      docker tag $IMAGE:$BUILD_TAG karthiksaladi047/$IMAGE:$BUILD_TAG
+
+      echo "%%%%%%%%%% Pushing Image %%%%%%%%%"
+      docker push karthiksaladi047/$IMAGE:$BUILD_TAG 
+      ```
+  - **Deploy Stage Scripts**
+      
+      /jenkins/deploy/deploy.sh
+      /jenkins/deploy/publish.sh
+
