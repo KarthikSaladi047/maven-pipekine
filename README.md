@@ -223,11 +223,11 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
   
  ## Developing Shell Scripts for various stages of Pipeline
  
-    As we are using different shell scripts at different stages of pipeline, we will disscuss regarding those scripts and realated docker and docker compose files in this section.
+    As we are using different shell scripts at different stages of pipeline, we will disscuss regarding those scripts and related Dockerfile and docker-compose.yml files in this section.
     
   - **Build Stage Scripts**
 
-      /jenkins/build/mvn.sh
+      jenkins/build/mvn.sh
 
       ```
       #!/bin/bash
@@ -239,8 +239,11 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
 
       docker run --rm -v $WORKSPACE/maven-app:/app -v /root/.m2/:/root/.m2 -w /app maven:latest "$@"
       ```
-
-      /jenkins/build/build.sh
+      - The above script builds a java application using maven.
+      - Here we are using a docker container with the image maven:latest to build the jar file for the application.
+      - After the build process completes the container get destroyed automatiacally, but we mapped certain volumes with the container, so we will retain the jar file build by the maven container.
+      
+      jenkins/build/build.sh
 
       ```
       #!/bin/bash
@@ -255,8 +258,10 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
 
       cd jenkins/build/ && docker compose -f docker-compose-build.yml build --no-cache
       ```
+      - The above script copies the jar file build by previous script to /jenkins/build directory and execute a docker-compose build command to build a docker image using below docker-compose-build.yml file.
+      
 
-      /jenkins/build/docker-compose-build.yml
+      jenkins/build/docker-compose-build.yml
 
       ```
       version: '3'
@@ -268,8 +273,9 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
             dockerfile: Dockerfile-Java
 
       ```
+      - This docker-compose file is used to build a docker image from a Dockerfile named "Dcokerfile-Java" and tag the image with the Jenkins environment variable "BUILD_TAG".
 
-      /jenkins/build/Dockerfile-Java
+      jenkins/build/Dockerfile-Java
 
       ```
       FROM openjdk:8-jre-alpine
@@ -280,10 +286,13 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
 
       CMD java -jar /app/app.jar
       ```
+      - This is main Dockerfile, which uses openjdk:8-jre-alpine as base image. 
+      - It actually copies the jar file that was build by 1st script(mvn.sh) and runs the application on top of openjdk.
+      
 
   - **Test stage Scripts**
 
-      /jenkins/test/mvn.sh
+      jenkins/test/mvn.sh
 
       ```
       #!/bin/bash
@@ -295,9 +304,12 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
 
       docker run --rm -v $WORKSPACE/maven-app:/app -v /root/.m2/:/root/.m2 -w /app maven:latest "$@"
       ```
+      - In this script we are testing the java application using maven.
+      - We are using a maven container for testing too.
+      
   - **Push Stage Scripts**
 
-      /jenkins/push/push.sh
+      jenkins/push/push.sh
 
       ```
       #!/bin/bash
@@ -318,8 +330,10 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
       echo "%%%%%%%%%% Pushing Image %%%%%%%%%"
       docker push karthiksaladi047/$IMAGE:$BUILD_TAG 
       ```
+      - This script is used to login to Docker Hub , tag the image with appropirate namming and push the image that we build previously to Docker Hub.
+      
   - **Deploy Stage Scripts**
       
-      /jenkins/deploy/deploy.sh
-      /jenkins/deploy/publish.sh
+      jenkins/deploy/deploy.sh
+      jenkins/deploy/publish.sh
 
