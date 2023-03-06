@@ -196,7 +196,7 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
   - we also have an environment variable called PASS , which is password for docker hub account.
     
     Adding Credentials in Jenkins(docker Hub cerdentials):
-    - In the jenkins dashboard navigate to **Manage Jenkins**-**Manage Credentials**-**system**-**Global cerdemtials**
+    - In the jenkins dashboard navigate to **Manage Jenkins** >> **Manage Credentials** >> **system** >> **Global cerdemtials**
     
     - Click on **Add Credentials**
     
