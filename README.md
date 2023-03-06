@@ -11,7 +11,8 @@ The Stages involved in this project are:
 - Jenkins Pipeline
 - Jenkins Credentials
 - Developing Shell Scripts for various processes (Build, Test & Deploy)
-- Generating required Dockerfiles and Docker-compose files
+- Troubleshooting
+- Conclusion
 
 ## Local Machine Setup
 
@@ -339,5 +340,6 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
   - **Deploy Stage Scripts**
       
       jenkins/deploy/deploy.sh
+      
       jenkins/deploy/publish.sh
 
