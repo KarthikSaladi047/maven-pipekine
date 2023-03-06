@@ -130,4 +130,66 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
   
 ## Jenkins pipeline
 
-- In the Jenkins UI click on "New Item" and add the project description and select Pipeline.
+- In the Jenkins Dashboard click on "New Item" and add the project name(maven-project), select Pipeline and click OK.
+
+- Now add pipeline description and in the pipeline definintion select "Pipeline Script from SCM" and select **git** within "SCM" add Github repo url and select **Jenkinfile** within "Script Path" then click save.
+
+- Now Our pipeline is ready to run and this pipeline uses the following Jenkinsfile.
+
+  ```
+  pipeline {
+
+      agent any
+
+      environment {
+          PASS = credentials('registry-pass') 
+      }
+
+      stages {
+
+          stage('Build') {
+              steps {
+                  sh '''
+                      ./jenkins/build/mvn.sh mvn -B -DskipTests clean package
+                      ./jenkins/build/build.sh
+                  '''
+              }
+
+              post {
+                  success {
+                     archiveArtifacts artifacts: 'maven-app/target/*.jar', fingerprint: true
+                  }
+              }
+          }
+
+          stage('Test') {
+              steps {
+                  sh './jenkins/test/mvn.sh mvn test'
+              }
+
+              post {
+                  always {
+                      junit 'maven-app/target/surefire-reports/*.xml'
+                  }
+              }
+          }
+
+          stage('Push') {
+              steps {
+                  sh './jenkins/push/push.sh'
+              }
+          }
+
+          stage('Deploy') {
+              steps {
+                  sh './jenkins/deploy/deploy.sh'
+              }
+          }
+      }
+  }
+  ```
+- This pipeline involves the following stages.
+  - **Build**: In this stage we run a shell script, which build the java application using maven. Then the build artifact will be containerized(Docker Image) using docker.
+  - **Test**: In this stage we run a shell script, which test the java application using maven and results will be posted.
+  - **Push**: In this stage the docker image build during build stage will be pushed to Docker Hub (container registry).
+  - **Deploy**: In this stage we will run the docker container on a remote Virtual Machine.
