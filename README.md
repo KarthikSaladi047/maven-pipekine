@@ -134,14 +134,14 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
 
   ![Screenshot from 2023-03-06 15-58-24](https://user-images.githubusercontent.com/105864615/223084931-6e4bddda-f375-45e6-aaaa-52d54254a3d3.png)
 
-- Now add pipeline description and in the pipeline definintion select **Pipeline Script from SCM** and select **git** within **SCM** add Github repo url and select **Jenkinfile** within **Script Path** then click save.
+- Now add pipeline description and in the pipeline definintion select **Pipeline Script from SCM** and select **git** within **SCM**, add Github repo url and select **Jenkinfile** within **Script Path** then click save.
 
   ![Screenshot from 2023-03-06 15-55-34](https://user-images.githubusercontent.com/105864615/223085099-5d5cdbf7-470d-4e4f-826b-c060b566af54.png)
 
   ![Screenshot from 2023-03-06 15-55-40](https://user-images.githubusercontent.com/105864615/223085186-58aa4985-0bf2-471e-a8d4-b7342d8dd273.png)
 
 
-- Now Our pipeline is ready to run and this pipeline uses the following **Jenkinsfile.
+- Now Our pipeline is ready to run and this pipeline uses the following **Jenkinsfile**.
 
   ```
   pipeline {
