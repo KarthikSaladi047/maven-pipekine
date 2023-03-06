@@ -200,4 +200,4 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
     
     - Click on **Add Credentials**
     
-    - Within the kind select **secret Text** and add **secret* and ID as **registy-pass**
+    - Within the **kind** select **Secret Text** and add secret & ID as **registry-pass**
