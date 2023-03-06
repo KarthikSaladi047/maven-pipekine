@@ -223,7 +223,7 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
   
  ## Developing Shell Scripts for various stages of Pipeline
  
-    As we are using different shell scripts at different stages of pipeline, we will disscuss regarding those scripts and related Dockerfile and docker-compose.yml files in this section.
+  As we are using different shell scripts at different stages of pipeline, we will disscuss regarding those scripts and related Dockerfile and docker-compose.yml files in this section.
     
   - **Build Stage Scripts**
 
@@ -241,7 +241,7 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
       ```
       - The above script builds a java application using maven.
       - Here we are using a docker container with the image maven:latest to build the jar file for the application.
-      - After the build process completes the container get destroyed automatiacally, but we mapped certain volumes with the container, so we will retain the jar file build by the maven container.
+      - After the build process completes the container get destroyed automatiacally, but we mapped certain volumes with the container, so we will retain the jar file, build by the maven container.
       
       jenkins/build/build.sh
 
