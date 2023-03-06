@@ -6,7 +6,7 @@ The Stages involved in this project are:
 - Jenkins setup
 - Jenkins Pipeline
 - Developing Shell Scripts for various processes (Build, Test & Deploy)
-- Generating required Dockerfiles and Docker-compose filest
+- Generating required Dockerfiles and Docker-compose files
 
 ## Local Machine Setup
 
@@ -100,15 +100,15 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
   ```
   docker-compose up 
   ```
-- Now will see the the password to access Jenkins server in the comand prompt as shown in below image.
+- Now will see the the password to access Jenkins server in the command prompt as shown in below image.
 
   ![Screenshot from 2023-03-05 18-15-24](https://user-images.githubusercontent.com/105864615/222961392-d22279f8-d209-4d6b-b879-feba4d65f6e6.png)
 
-- Copy the password and now open Brownser and navigate to http://localhost:8080/ and We will see the following Image.
+- Copy the password and open Browser and navigate to http://localhost:8080/ and We will see a page similar to the following Image.
 
   ![Screenshot from 2023-03-05 17-15-48](https://user-images.githubusercontent.com/105864615/222960463-192e80ce-40be-443d-af76-1a06878e49ee.png)
 
-- Paste the password copied and click continue and then we need to install suggested plugins before proceeding to next step.
+- Paste the password that was copied and click continue and then we need to install suggested plugins before proceeding to next steps.
  
   ![Untitled design](https://user-images.githubusercontent.com/105864615/222960800-b8e55b98-789c-4bc5-905d-16af98c4c8a3.jpg)
 
@@ -120,7 +120,7 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
 
   ![Screenshot from 2023-03-05 17-22-32](https://user-images.githubusercontent.com/105864615/222960348-c5b56932-ed0a-4f94-90dd-2ae054b042c0.png)
 
-- Now the Jenkins server is add with plugins and user account.
+- Now the Jenkins server is added with plugins and user account and is set to be used as Continuous Integration Server.
 
   ![Screenshot from 2023-03-05 17-23-10](https://user-images.githubusercontent.com/105864615/222960359-b46dfc0d-5312-4145-8bd5-b48596a235d5.png)
 
