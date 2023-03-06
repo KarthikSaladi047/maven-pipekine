@@ -190,7 +190,14 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
   ```
 - This pipeline involves the following stages.
   - **Build**: In this stage we run couple of shell scripts, which build the java application using maven and then the build artifact will be containerized(Docker Image) using docker.
-  - **Test**: In this stage we run a shell script, which test the java application using maven and results will be posted.
+  - **Test**: In this stage we run a shell script, which test the java application using maven and results will be reported within Jenkins.
   - **Push**: In this stage we run a shell script which pushes the docker image that was build during build stage to Docker Hub (container registry).
   - **Deploy**: In this stage we will run couple of shell scripts which runs the docker container on a remote Virtual Machine.
   - we also have an environment variable called PASS , which is password for docker hub account.
+    
+    Adding Credentials in Jenkins(docker Hub cerdentials):
+    - In the jenkins dashboard navigate to **Manage Jenkins**-**Manage Credentials**-**system**-**Global cerdemtials**
+    
+    - Click on **Add Credentials**
+    
+    - Within the kind select **secret Text** and add **secret* and ID as **registy-pass**
