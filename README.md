@@ -219,14 +219,60 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
 
     ![Screenshot from 2023-03-06 15-37-01](https://user-images.githubusercontent.com/105864615/223085378-a9025477-6332-4cb0-8172-603621bde5b0.png)
       
- 
+  - Now configure Jenkins pipeline to use this credentials for accessing docker hub account, by adding this credentials to the pipeline definition.
+  
  ## Developing Shell Scripts for various stages of Pipeline
  
-    As we are using different shell script at different stages of pipeline, we will disscuss regarding those scripts and realated docker and docker compose files in this section.
+    As we are using different shell scripts at different stages of pipeline, we will disscuss regarding those scripts and realated docker and docker compose files in this section.
     
     - **Build Stage Scripts**
     
       /jenkins/build/mvn.sh
       ```
+      #!/bin/bash
+
+      echo "%%%%%%%%%%%%%%%%%%"
+      echo "building jar file"
+      echo "%%%%%%%%%%%%%%%%%%"
+      WORKSPACE=/home/karthik/projects/jenkins-volume/workspace/maven-project
+
+      docker run --rm -v $WORKSPACE/maven-app:/app -v /root/.m2/:/root/.m2 -w /app maven:latest "$@"
+      ```
       
+      /jenkins/build/build.sh
+      ```
+      #!/bin/bash
+
+      # copy the new jar to build loction
+      cp -f maven-app/target/*.jar jenkins/build/
+
+
+      echo "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+      echo "building docker image"
+      echo "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+
+      cd jenkins/build/ && docker compose -f docker-compose-build.yml build --no-cache
+      ```
+      
+      /jenkins/build/docker-compose-build.yml
+      ```
+      version: '3'
+      services:
+        app:
+          image: "maven-project:$BUILD_TAG"
+          build:
+            context: .
+            dockerfile: Dockerfile-Java
+      
+      ```
+      
+      /jenkins/build/Dockerfile-Java
+      ```
+      FROM openjdk:8-jre-alpine
+
+      RUN mkdir /app
+
+      COPY *.jar  /app/app.jar
+
+      CMD java -jar /app/app.jar
       ```
