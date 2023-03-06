@@ -5,6 +5,7 @@ The Stages involved in this project are:
 - Cloning Java App 
 - Jenkins setup
 - Jenkins Pipeline
+- Jenkins Credentials
 - Developing Shell Scripts for various processes (Build, Test & Deploy)
 - Generating required Dockerfiles and Docker-compose files
 
@@ -203,18 +204,20 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
   - **Deploy**: In this stage we will run couple of shell scripts which runs the docker container on a remote Virtual Machine.
   - we also have an environment variable called PASS , which is password for docker hub account.
     
-    Adding Credentials in Jenkins(docker Hub credentials):
-    - In the jenkins dashboard navigate to **Manage Jenkins** >> **Manage Credentials** >> **system** >> **Global credentials**
-    
-      ![Screenshot from 2023-03-06 11-54-37](https://user-images.githubusercontent.com/105864615/223085555-b42fab77-737d-4473-9fc2-cad6b31f35c9.png)
+ ## Jenkins Credentials
+ 
+  Adding Credentials in Jenkins(docker Hub credentials):
+  - In the jenkins dashboard navigate to **Manage Jenkins** >> **Manage Credentials** >> **system** >> **Global credentials**
 
-    - Click on **Add Credentials**
-    
-      ![Screenshot from 2023-03-06 16-03-44](https://user-images.githubusercontent.com/105864615/223085964-83438798-0901-4fdf-9dbc-fa49be54c6b6.png)
+    ![Screenshot from 2023-03-06 11-54-37](https://user-images.githubusercontent.com/105864615/223085555-b42fab77-737d-4473-9fc2-cad6b31f35c9.png)
 
-    - Within the **kind** select **Secret Text** and add secret & ID as **registry-pass**
-      
-      ![Screenshot from 2023-03-06 15-37-01](https://user-images.githubusercontent.com/105864615/223085378-a9025477-6332-4cb0-8172-603621bde5b0.png)
+  - Click on **Add Credentials**
+
+    ![Screenshot from 2023-03-06 16-03-44](https://user-images.githubusercontent.com/105864615/223085964-83438798-0901-4fdf-9dbc-fa49be54c6b6.png)
+
+  - Within the **kind** select **Secret Text** and add secret & ID as **registry-pass**
+
+    ![Screenshot from 2023-03-06 15-37-01](https://user-images.githubusercontent.com/105864615/223085378-a9025477-6332-4cb0-8172-603621bde5b0.png)
       
  
  ## Developing Shell Scripts for various stages of Pipeline
