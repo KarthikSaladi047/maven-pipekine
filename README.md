@@ -227,52 +227,80 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
     
     - **Build Stage Scripts**
     
-      /jenkins/build/mvn.sh
-      ```
-      #!/bin/bash
+        /jenkins/build/mvn.sh
 
-      echo "%%%%%%%%%%%%%%%%%%"
-      echo "building jar file"
-      echo "%%%%%%%%%%%%%%%%%%"
-      WORKSPACE=/home/karthik/projects/jenkins-volume/workspace/maven-project
+        ```
+        #!/bin/bash
 
-      docker run --rm -v $WORKSPACE/maven-app:/app -v /root/.m2/:/root/.m2 -w /app maven:latest "$@"
-      ```
-      
-      /jenkins/build/build.sh
-      ```
-      #!/bin/bash
+        echo "%%%%%%%%%%%%%%%%%%"
+        echo "building jar file"
+        echo "%%%%%%%%%%%%%%%%%%"
+        WORKSPACE=/home/karthik/projects/jenkins-volume/workspace/maven-project
 
-      # copy the new jar to build loction
-      cp -f maven-app/target/*.jar jenkins/build/
+        docker run --rm -v $WORKSPACE/maven-app:/app -v /root/.m2/:/root/.m2 -w /app maven:latest "$@"
+        ```
+
+        /jenkins/build/build.sh
+
+        ```
+        #!/bin/bash
+
+        # copy the new jar to build loction
+        cp -f maven-app/target/*.jar jenkins/build/
 
 
-      echo "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
-      echo "building docker image"
-      echo "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+        echo "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+        echo "building docker image"
+        echo "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
 
-      cd jenkins/build/ && docker compose -f docker-compose-build.yml build --no-cache
-      ```
-      
-      /jenkins/build/docker-compose-build.yml
-      ```
-      version: '3'
-      services:
-        app:
-          image: "maven-project:$BUILD_TAG"
-          build:
-            context: .
-            dockerfile: Dockerfile-Java
-      
-      ```
-      
-      /jenkins/build/Dockerfile-Java
-      ```
-      FROM openjdk:8-jre-alpine
+        cd jenkins/build/ && docker compose -f docker-compose-build.yml build --no-cache
+        ```
 
-      RUN mkdir /app
+        /jenkins/build/docker-compose-build.yml
 
-      COPY *.jar  /app/app.jar
+        ```
+        version: '3'
+        services:
+          app:
+            image: "maven-project:$BUILD_TAG"
+            build:
+              context: .
+              dockerfile: Dockerfile-Java
 
-      CMD java -jar /app/app.jar
-      ```
+        ```
+
+        /jenkins/build/Dockerfile-Java
+
+        ```
+        FROM openjdk:8-jre-alpine
+
+        RUN mkdir /app
+
+        COPY *.jar  /app/app.jar
+
+        CMD java -jar /app/app.jar
+        ```
+        
+    - **Test stage Scripts**
+        
+        /jenkins/test/mvn.sh
+        
+        ```
+        #!/bin/bash
+
+        echo "%%%%%%%%%%%%%%%%%%"
+        echo "testing  jar file"
+        echo "%%%%%%%%%%%%%%%%%%"
+        WORKSPACE=/home/karthik/projects/jenkins-volume/workspace/maven-project
+
+        docker run --rm -v $WORKSPACE/maven-app:/app -v /root/.m2/:/root/.m2 -w /app maven:latest "$@"
+        ```
+    - **Push Stage Scripts**
+        
+        /jenkins/push/push.sh
+        
+        ```
+        
+        ```
+        
+        
