@@ -383,15 +383,19 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
   
   - In Jenkins dashboard click on **maven-project** and then click on **Build now** to schedule a run.
   
-  ![Screenshot from 2023-03-07 16-08-01](https://user-images.githubusercontent.com/105864615/223399864-f1e7c34e-9359-4147-a6cb-c2a18f9029cb.png)
+    ![Screenshot from 2023-03-07 16-08-01](https://user-images.githubusercontent.com/105864615/223399864-f1e7c34e-9359-4147-a6cb-c2a18f9029cb.png)
 
   - Now the pipeline will run and we can see process as stage view.
   
     ![Screenshot from 2023-03-07 16-09-56](https://user-images.githubusercontent.com/105864615/223399920-8bae8ada-06cc-46fd-a652-395b03004d87.png)
+
+  - Click on the **build number** and then click on **Console Output** to see console view.
+  
+    ![Screenshot from 2023-03-07 16-19-51](https://user-images.githubusercontent.com/105864615/223401573-c1faf07a-c5f7-4bba-85ee-5a1c2cf4b918.png)
   
   - We can see the image that was build during this run in Docker Hub.
   
-  ![Web capture_6-3-2023_134739_hub docker com](https://user-images.githubusercontent.com/105864615/223397695-1db3e121-04cc-4cae-92ce-fe7f6a256171.jpeg)
+    ![Web capture_6-3-2023_134739_hub docker com](https://user-images.githubusercontent.com/105864615/223397695-1db3e121-04cc-4cae-92ce-fe7f6a256171.jpeg)
   
  ## Troubleshooting
  
