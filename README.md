@@ -3,6 +3,7 @@
 ## Introduction
 
 Automation of building, testing & deploying a Java Application using Maven, Jenkins, Docker and Shell Scripting.
+
 ![jenkins-scripting](https://user-images.githubusercontent.com/105864615/223118774-9ae7ab34-6f5a-4dd8-b9a7-917b0dcbede6.jpg)
 
 The Stages involved in this project are:
@@ -342,5 +343,76 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
       
       jenkins/deploy/deploy.sh
       
-      jenkins/deploy/publish.sh
+      ```
+      #!/bin/bash
 
+      echo maven-project > /tmp/.auth
+      echo $BUILD_TAG >> /tmp/.auth
+      echo $PASS >> /tmp/.auth
+
+      scp -i /opt/prod /tmp/.auth user@<IP_Address>:/tmp/.auth
+
+      scp -i /opt/prod ~/projects/maven-pipeline/jenkins/deploy/publish.sh user@<IP_Address>:/tmp/publish.sh
+
+      ssh -i /opt/prod user@<IP_Address> "/tmp/publish.sh"
+      ```
+      - In this script 3 terms are added to a file called /tmp/.auth.
+      - Then we will copy the above file and another script nammed publish.sh to remote server.
+      - Then we execute the publish.sh script on remote server.
+      
+      jenkins/deploy/publish.sh
+      
+      ```
+      #!/bin/bash
+
+      export IMAGE=$(sed -n '1p' /tmp/.auth)
+      export TAG=$(sed -n '2p' /tmp/.auth)
+      export PASS=$(sed -n '3p' /tmp/.auth)
+
+      docker login -u karthiksaladi047 -p $PASS
+
+      docker run karthiksaladi047/$IMAGE:$TAG
+      ```
+      - In this script we add required Environment variables.
+      - Then we login to Docker Hub.
+      - Then we run the docker container that we have build and pushed to docker hub.
+
+ ## Troubleshooting
+ 
+  Here are some general troubleshooting steps for this project:
+
+  - Check logs: Start by checking the logs of the Jenkins job, Docker container, and shell scripts. Look for any error messages, warnings, or exceptions that could give you a clue about the root cause of the problem.
+
+  - Check dependencies: Verify that all the dependencies required by the project are installed and up-to-date. For example, make sure the correct version of Docker, Git, and other software tools are installed.
+
+  - Check permissions: Make sure that the Jenkins user has the necessary permissions to access the required files, directories, and repositories. Also, check that the Docker daemon has the necessary permissions to access the Docker socket.
+
+  - Check environment variables: Verify that all environment variables required by the project are set correctly. For example, check that the PATH variable is set correctly, and that any secrets or tokens required by the project are stored in the correct environment variables.
+
+  - Check network connectivity: Check that the Jenkins server and Docker host can communicate with each other, and that there are no firewall or network issues preventing the communication.
+
+  - Test scripts: Run the shell scripts manually on the command line to check if there are any syntax errors or other issues. Use the same environment variables and inputs as the Jenkins job.
+
+  - Check Docker containers: Verify that the Docker containers are running correctly, and that they are built from the correct Docker images. Check the Docker logs for any error messages.
+
+  - Check GitHub: Verify that the required branches and repositories exist in GitHub, and that the Jenkins job is configured correctly to pull the correct code.
+
+  - Check Jenkins job configuration: Verify that the Jenkins job is configured correctly, and that the correct plugins and settings are enabled.
+
+  - Consult documentation: Finally, consult the documentation for the tools being used, such as Jenkins, Docker, and GitHub. Look for any known issues or troubleshooting steps that could help resolve the problem.
+
+ ## Conclusion
+ 
+  In conclusion, using Jenkins pipeline to build, test, push, and deploy a project to a remote server via shell scripts can be an efficient and reliable way to automate the software delivery process. By creating a continuous integration and deployment pipeline, we can ensure that code changes are tested thoroughly and delivered quickly to end-users.
+
+  To achieve a successful deployment, it is important to ensure that the shell scripts are designed to handle various error scenarios and edge cases. Troubleshooting and debugging techniques, such as checking logs, verifying dependencies and configurations, and testing the scripts manually, should be used to ensure that the deployment process is running smoothly.
+
+  In addition, it is important to implement security measures such as using secure environment variables and storing sensitive data securely. Finally, it is recommended to consult the documentation of the tools being used, such as Jenkins and Docker, to ensure that the project is using best practices and taking advantage of the latest features and updates.
+  
+ ## Thanks
+ 
+  Thank you for reading my project documentation. I appreciate your interest on this project. If you have any questions or feedback, please don't hesitate to reach out to me at karthiksaladi047@gmail.com
+
+  We hope that this documentation has provided you with the information you need to understand and use our project. I will continue to update and improve it as we receive feedback and make changes to the project.
+
+  Thank you again for your interest and support. I look forward to hearing from you.
