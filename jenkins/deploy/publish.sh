@@ -6,5 +6,4 @@ export PASS=$(sed -n '3p' /tmp/.auth)
 
 docker login -u karthiksaladi047 -p $PASS
 
-cd ~/maven && docker compose up -d
-
+docker run karthiksaladi047/$IMAGE:$TAG
