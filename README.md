@@ -376,7 +376,25 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
       - In this script we add required Environment variables.
       - Then we login to Docker Hub.
       - Then we run the docker container that we have build and pushed to docker hub.
-
+ 
+ ## Running the Pipeline
+  
+  Now we have everything ready to automate the process of building, testing, and deploying the application.
+  
+  - In Jenkins dashboard click on **maven-project** and then click on **Build now** to schedule a run.
+  
+  
+  
+  - Now the pipeline will run and we can see process as stage view.
+  
+  
+  
+  - We can see the image that was build during this run in Docker Hub.
+  
+  
+  
+  ![Web capture_6-3-2023_134739_hub docker com](https://user-images.githubusercontent.com/105864615/223397695-1db3e121-04cc-4cae-92ce-fe7f6a256171.jpeg)
+  
  ## Troubleshooting
  
   Here are some general troubleshooting steps for this project:
