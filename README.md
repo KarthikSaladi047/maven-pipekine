@@ -239,7 +239,7 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
   ssh-keygen -f prod
   ```
   - The above command generates 2 files named **prod** and **prod.pub** files.
-  - Now we need to copy the content of  **prod.pub** file and paste at **/home/remote-user/.ssh/authorized_key** on remote server.
+  - Now we need to copy the content of  **prod.pub** file and paste at **/home/remote-user/.ssh/authorized_keys** on remote server.
   - Then we copy the private key to Jenkins server(container) using following docker command.
   ```
   docker cp ~/prod jenkins:/opt/prod
