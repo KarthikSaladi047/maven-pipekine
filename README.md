@@ -14,6 +14,7 @@ The Stages involved in this project are:
 - Jenkins Credentials
 - Remote Server Connection
 - Developing Shell Scripts for various processes (Build, Test & Deploy)
+- Running Pipeline
 - Troubleshooting
 - Conclusion
 
