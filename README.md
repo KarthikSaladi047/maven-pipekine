@@ -12,6 +12,7 @@ The Stages involved in this project are:
 - Jenkins setup
 - Jenkins Pipeline
 - Jenkins Credentials
+- Remote Server Connection
 - Developing Shell Scripts for various processes (Build, Test & Deploy)
 - Troubleshooting
 - Conclusion
@@ -228,6 +229,22 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
       
   - Now configure Jenkins pipeline to use this credentials for accessing docker hub account, by adding this credentials to the pipeline definition.
   
+ ## Remote Server Connection
+  
+  In order to deploy our containarized application by running shell scripts in the remote server, we need to establish secure connection using ssh.
+  
+  - we generate ssh keys in the local machine for ssh connection to remote server.
+  ```
+  ssh-keygen -f prod
+  ```
+  - The above command generates 2 files named **prod** and **prod.pub** files.
+  - Now we need to copy the content of  **prod.pub** file and paste at **/home/remote-user/.ssh/authorized_key** on remote server.
+  - Then we copy the private key to Jenkins server(container) using following docker command.
+  ```
+  docker cp ~/prod jenkins:/opt/prod
+  ```
+  - Now the jenkins server can ssh into remote server using this private key.
+  
  ## Developing Shell Scripts for various stages of Pipeline
  
   As we are using different shell scripts at different stages of pipeline, we will disscuss regarding those scripts and related Dockerfile and docker-compose.yml files in this section.
@@ -297,7 +314,7 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
       - It actually copies the jar file that was build by 1st script(mvn.sh) and runs the application on top of openjdk.
       
 
-  - **Test stage Scripts**
+  - **Test Stage Scripts**
 
       jenkins/test/mvn.sh
 
@@ -357,7 +374,7 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
       ssh -i /opt/prod user@<IP_Address> "/tmp/publish.sh"
       ```
       - In this script 3 terms are added to a file called /tmp/.auth.
-      - Then we will copy the above file and another script nammed publish.sh to remote server.
+      - Then we will copy the above file and another script nammed publish.sh to remote server using a ssh key /opt/prod.
       - Then we execute the publish.sh script on remote server.
       
       jenkins/deploy/publish.sh
