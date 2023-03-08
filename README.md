@@ -405,7 +405,7 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
 
   - Now the pipeline will run and we can see process as stage view.
   
-    ![Screenshot from 2023-03-07 16-09-56](https://user-images.githubusercontent.com/105864615/223399920-8bae8ada-06cc-46fd-a652-395b03004d87.png)
+    ![Screenshot from 2023-03-08 15-34-50](https://user-images.githubusercontent.com/105864615/223684101-ad1e1e13-588a-429c-9516-a4a8505cc953.png)
 
   - Click on the **build number** and then click on **Console Output** to see console view.
   
