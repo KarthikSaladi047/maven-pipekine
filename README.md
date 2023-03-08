@@ -368,11 +368,11 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
       echo $BUILD_TAG >> /tmp/.auth
       echo $PASS >> /tmp/.auth
 
-      scp -i /opt/prod /tmp/.auth user@<IP_Address>:/tmp/.auth
+      scp -i /opt/prod /tmp/.auth karthik@192.168.55.105:/tmp/.auth
 
-      scp -i /opt/prod ~/projects/maven-pipeline/jenkins/deploy/publish.sh user@<IP_Address>:/tmp/publish.sh
+      scp -i /opt/prod ~/projects/maven-pipeline/jenkins/deploy/publish.sh remote-user@192.168.55.109:/tmp/publish.sh
 
-      ssh -i /opt/prod user@<IP_Address> "/tmp/publish.sh"
+      ssh -i /opt/prod remote-user@192.168.55.109 "/tmp/publish.sh"
       ```
       - In this script 3 terms are added to a file called /tmp/.auth.
       - Then we will copy the above file and another script nammed publish.sh to remote server using a ssh key /opt/prod.
