@@ -14,7 +14,8 @@ The Stages involved in this project are:
 - Jenkins Credentials
 - Remote Server Connection
 - Developing Shell Scripts for various processes (Build, Test & Deploy)
-- Running Pipeline
+- Running Pipeline Manually
+- Automating the CI/CD using Git Hook
 - Troubleshooting
 - Conclusion
 
@@ -395,7 +396,7 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
       - Then we login to Docker Hub.
       - Then we run the docker container that we have build and pushed to docker hub.
  
- ## Running the Pipeline
+ ## Running the Pipeline Manually
   
   Now we have everything ready to automate the process of building, testing, and deploying the application.
   
@@ -414,7 +415,38 @@ In this project I am using a custom Jenkins Docker container as my Continuous In
   - We can see the image that was build during this run in Docker Hub.
   
     ![Web capture_6-3-2023_134739_hub docker com](https://user-images.githubusercontent.com/105864615/223397695-1db3e121-04cc-4cae-92ce-fe7f6a256171.jpeg)
+ 
+ ## Automating the CI/CD using Git Hook
   
+  To automate the CI/CD, we need to create a Git Hook in the repository, So that whenever the developers pushes the code to repository git will trigger our job i.e., pipeline will start.
+  
+  Git hooks are scripts that run automatically before or after executing Git commands like Commit and Push. With Git hook scripts, users can customize Git’s internal behavior by automating specific actions at the level of programs and deployment.
+  
+  We have the following Git Hook within the repository, which triggers the jenkins pipeline everytime a push is made to repository.
+  
+  ```
+  #!/bin/bash
+  
+  # Get branch name from ref head
+  
+  if ! [ -t 0 ]; then
+    read -a ref
+  fi
+  IFS='/' read -ra REF <<< "${ref[2]}"
+  branch="${REF[2]}"
+  
+  if [ "$branch" == "master]; then
+  crumb=$(curl -u "jenkins:1234" -s 'http://jenkins:8080/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)')
+  curl -u "jenkins:1234" -H "$crumb" -X POST https:jenkins:8080/job/maven-project/build?delay=0sec
+  
+    if [ $? -eq 0 ] ; then
+      echo "*** Ok
+    else
+      echo "*** Error"
+    fi
+    
+  fi
+  ```
  ## Troubleshooting
  
   Here are some general troubleshooting steps for this project:
